@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({
+        name: {
+          type: String,
+        },
         password: {
           type: String,
           required: [true, 'Password is required'],
@@ -19,10 +22,13 @@ const userSchema = new mongoose.Schema({
           type: String,
           default: null,
         },
-        avatarURL: {
-          type: String,
-          default: null,
-        },
+        // avatarURL: {
+        //   type: String,
+        //   default: null,
+        // },
+      }, {
+        versionKey: false, 
+        timestamps: true,
       }
 )
 

@@ -1,9 +1,10 @@
 import express from 'express'
 import morgan from 'morgan';
 import cors from 'cors'
-import usersRouter from './routes/users.js'
+import usersRouter from './routes/allRoutes.js'
 import './db/db.js'
 import dotenv from "dotenv";
+import 'dotenv/config'
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/users', usersRouter)
+app.use('/api', usersRouter)
 
 app.use((_, res) => {
     res.status(404).send({message: 'Route not found'})
