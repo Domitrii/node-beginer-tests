@@ -35,7 +35,7 @@ async function getOneContact(req, res, next){
         const {id} = req.params
         if(!isValidObjectId(id)) return res.status(404).send({message: "This contact is not defined"})
         const contact = await Contact.findOne({_id: id, owner: req.user.id})
-        if(!contact) return res.status(401).send({message: "This contact is not defined"})
+        if(!contact) return res.status(401).send({message: "This contact is not found"})
         res.status(201).send(contact)
     } catch (error){
         next(error)

@@ -36,13 +36,28 @@ async function login(req, res, next){
         } 
         const token = jwt.sign({id: user._id, name: user.name}, process.env.SECRET_PASS, {expiresIn: '23h'})
 
+        await User.findByIdAndUpdate(user._id , {token}, {new: true})
+
         res.send({token: token})
     } catch (error){
         next(error)
     }
 }
 
+
+async function logout(req, res, next){
+    try{
+        await User.findByIdAndUpdate(req.user.id, {token: null}, {new: true})
+        res.status(204).end()
+    } catch (error){
+        next(error)
+    }
+}
+
+
+
 export default {
     register,
-    login
+    login,
+    logout
 }
