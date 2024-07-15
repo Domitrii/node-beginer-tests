@@ -6,7 +6,7 @@ function auth(req, res, next){
     const authorizationHeader = req.headers.authorization
 
     if(typeof authorizationHeader === 'undefined'){
-        return res.status(401).send({message: "Invalid token"})
+        return res.status(401).send({message: "Invalid token1"})
     }
 
     const [bearer, token] = authorizationHeader.split(' ', 2)
@@ -22,7 +22,7 @@ function auth(req, res, next){
             const user = await User.findById(decode.id)
 
             if(!user || user.token !== token){
-                return res.status(401).send({message: "Invalid token"})
+                return res.status(401).send({message: "Invalid token2", user})
             }
 
             req.user = {id: decode.id}

@@ -1,18 +1,13 @@
 import mongoose from 'mongoose'
 
 const contactSchema = new mongoose.Schema({
-    name: {
+    time: {
         type: String,
-        required: [true, "U should write contact"]
+        required: true
     },
-    email: {
-        type: String
-    },
-    phone: {
-        type: String
-    },
-    favorite: {
-        type: Boolean
+    amount: {
+        type: Number,
+        required: true
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
@@ -20,4 +15,4 @@ const contactSchema = new mongoose.Schema({
     }
 })
 
-export default mongoose.model("NewContact", contactSchema)
+export default mongoose.model("NewTrack", contactSchema)
