@@ -1,7 +1,7 @@
 import { authSchema } from "../schemas/authSchema.js"
 import HttpError from '../helpers/HttpError.js';
 import User from '../modules/usersModule.js'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
 
 
