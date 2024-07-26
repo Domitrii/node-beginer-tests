@@ -3,7 +3,6 @@ import WaterController from '../controllers/water.js'
 
 const router = express.Router()
 
-
 router.get('/day', WaterController.getWaterRecordDaily)
 router.get('/month', WaterController.getWaterRecordByMonth)
 router.post('/', WaterController.addWaterOnDay)

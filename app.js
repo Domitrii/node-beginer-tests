@@ -5,6 +5,8 @@ import usersRouter from './routes/allRoutes.js'
 import './db/db.js'
 import dotenv from "dotenv";
 import 'dotenv/config'
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 dotenv.config();
 
@@ -13,6 +15,30 @@ const app = express()
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
+
+const SwaggerOptions = {
+    swaggerDefinition: {
+        openapi: "3.0.0",
+        info: {
+            title: "API Documentation",
+            version: '1.0.0',
+            description: 'API Info',
+            contact: {
+                name: "Dima"
+            }
+        },
+        servers: [
+            {
+                url: 'https://dimas-server.com',
+                description: 'Production server'
+            }
+        ]
+    },
+    apis: ['./routes/*.js']
+};
+
+const SwaggerDocs = swaggerJsDoc(SwaggerOptions)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(SwaggerDocs))
 
 app.use('/api', usersRouter)
 
