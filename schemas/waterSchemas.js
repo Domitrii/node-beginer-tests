@@ -4,7 +4,7 @@ const timeRegex =
 
 
 export const createWaterSchema = Joi.object({
-  time: Joi.string().regex(timeRegex).required(),
+  time: Joi.string().required(),
   amount: Joi.number().max(5000).min(0)
 });
 
