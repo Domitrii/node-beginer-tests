@@ -26,16 +26,14 @@ async function getWaterRecordDaily (req, res, next) {
 
 async function addWaterOnDay(req, res, next){
     try {
-        console.log('first:', req.body)
         const {error} = createWaterSchema.validate(req.body)
         if(error){
             throw HttpError( 400, error.message)
         }
-        console.log('second:', req.body)
-        const recordWater = {
+        const recordWater = await Water.create({
             ...req.body,
-            owner: req.body.id
-        }
+            owner: req.user.id
+        })
         res.status(201).send(recordWater)
     } catch (error){
         next(error)
