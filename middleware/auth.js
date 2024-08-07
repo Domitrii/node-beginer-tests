@@ -7,7 +7,7 @@ function auth(req, res, next){
 
     if(typeof authorizationHeader === 'undefined'){
         return
-        // return res.status(401).send({message: "Invalid token1"})
+        return res.status(401).send({message: "Invalid token1"})
     }
 
     const [bearer, token] = authorizationHeader.split(' ', 2)
