@@ -18,6 +18,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
+console.log('adfda')
+
 const SwaggerOptions = {
     swaggerDefinition: {
         openapi: "3.0.0",
