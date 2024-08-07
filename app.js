@@ -31,7 +31,7 @@ const SwaggerOptions = {
         },
         servers: [
             {
-                url: 'https://dimas-server.com',
+                url: 'https://node-beginer-tests.onrender.com',
                 description: 'Production server'
             }
         ]
