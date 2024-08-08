@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken'
 
 async function register(req, res, next){
     try{
-        return console.log('regist')
         const {error} = authSchema.validate(req.body)
         if(error) throw HttpError(400, error.message)
 
