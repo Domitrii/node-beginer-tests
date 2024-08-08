@@ -6,7 +6,6 @@ function auth(req, res, next){
     const authorizationHeader = req.headers.authorization
 
     if(typeof authorizationHeader === 'undefined'){
-        return
         return res.status(401).send({message: "Invalid token1"})
     }
 
