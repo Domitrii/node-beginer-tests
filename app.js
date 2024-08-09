@@ -13,9 +13,7 @@ dotenv.config();
 const app = express()
 
 app.use(morgan("tiny"));
-app.use(cors({
-    origin: 'https://frontend-water.vercel.app/'
-}));
+app.use(cors());
 app.use(express.json());
 
 const SwaggerOptions = {
