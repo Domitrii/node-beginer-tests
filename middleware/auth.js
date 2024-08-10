@@ -5,9 +5,9 @@ import User from '../modules/usersModule.js'
 function auth(req, res, next){
     const authorizationHeader = req.headers.authorization
 
-    // if(typeof authorizationHeader === 'undefined'){
-    //     return res.status(401).send({message: "Invalid token1"})
-    // }
+    if(typeof authorizationHeader === 'undefined'){
+        return res.status(401).send({message: "Invalid token1"})
+    }
 
     const [bearer, token] = authorizationHeader.split(' ', 2)
     if(bearer !== "Bearer"){
