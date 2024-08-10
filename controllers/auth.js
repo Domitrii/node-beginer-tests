@@ -29,7 +29,9 @@ async function register(req, res, next){
 
 async function login(req, res, next){
     try {
+        console.log('Login')
         const {email, password} = req.body;
+        console.log(email)
         const user = await User.findOne({email})
         if(!user) throw HttpError(401, "User is not found")
 
