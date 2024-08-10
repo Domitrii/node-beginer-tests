@@ -27,45 +27,66 @@ async function register(req, res, next){
     }
 }
 
-async function login(req, res, next){
+async function login(req, res, next) {
     try {
-        console.log('Login')
-        const {email, password} = req.body;
-        console.log(email)
-        const user = await User.findOne({email})
-        // if(!user) throw new HttpError(401, "User is not found")
-        if(!user) return res.status(401).send("User is not found")
+        const { email, password } = req.body;
 
-        const isMatch = await bcrypt.compare(password, user.password)
-        if(isMatch === false){
-            return res.status(401).send({message: "Email or password are used"})
-        } 
+        // Logging input for debugging
+        console.log(`Login attempt with email: ${email}`);
+
+        // Check if email and password are provided
+        if (!email || !password) {
+            console.log('Email and password are required');
+            throw new HttpError(400, "Email and password are required");
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            console.log('User not found');
+            throw new HttpError(401, "User is not found");
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            console.log('Password does not match');
+            return res.status(401).send({ message: "Email or password are incorrect" });
+        }
+
         const token = jwt.sign(
-            {id: user._id},
+            { id: user._id },
             process.env.SECRET_PASS,
-            {expiresIn: '23h'}
-        )
+            { expiresIn: '23h' }
+        );
 
         const refreshToken = jwt.sign(
-            {id: user._id},
+            { id: user._id },
             process.env.SECRET_PASS,
-            {expiresIn: '23'}
-        )
+            { expiresIn: '23h' }
+        );
 
-        await User.findByIdAndUpdate(user._id , {token: token}, {new: true})
+        await User.findByIdAndUpdate(user._id, { token: token }, { new: true });
 
-        res.send({token, refreshToken, user: {
-            id: user._id,
-            email: user.email,
-            gender: user.gender,
-            dailyNorm: user.dailyNorm,
-            weight: user.weight,
-            timeActive: user.timeActive,
-        } })
-    } catch (error){
-        next(error)
+        res.send({
+            token,
+            refreshToken,
+            user: {
+                id: user._id,
+                email: user.email,
+                gender: user.gender,
+                dailyNorm: user.dailyNorm,
+                weight: user.weight,
+                timeActive: user.timeActive,
+            }
+        });
+
+    } catch (error) {
+        console.error('Login error:', error);
+        next(error);
     }
 }
+
 
 
 async function logout(req, res, next){
