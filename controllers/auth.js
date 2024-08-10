@@ -28,7 +28,6 @@ async function register(req, res, next){
 }
 
 async function login(req, res, next){
-    console.log('LogIn')
     try {
         const {email, password} = req.body;
         const user = await User.findOne({email})
@@ -68,7 +67,6 @@ async function login(req, res, next){
 
 async function logout(req, res, next){
     try{
-        console.log('data')
         await User.findByIdAndUpdate(req.user.id, {token: null}, {new: true})
         res.status(204).end()
     } catch (error){
