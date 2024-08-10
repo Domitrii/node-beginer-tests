@@ -5,7 +5,7 @@ function auth(req, res, next) {
     const {authorization = ""} = req.headers;
 
     const [bearer, token] = authorization.split(' ', 2);
-    if (bearer !== "Bearer" || !token) {
+    if (bearer !== "Bearer") {
         return res.status(401).send({message: "Bearer is not defined or token is missing"});
     }
 
