@@ -2,14 +2,9 @@ import jwt from 'jsonwebtoken';
 import User from '../modules/usersModule.js';
 
 function auth(req, res, next) {
-    const authorizationHeader = req.headers.authorization;
-    console.log(authorizationHeader)
+    const {authorization = ""} = req.headers;
 
-    // if (!authorizationHeader) {
-    //     return res.status(401).send({message: "Invalid token1"});
-    // }
-
-    const [bearer, token] = authorizationHeader.split(' ', 2);
+    const [bearer, token] = authorization.split(' ', 2);
     if (bearer !== "Bearer" || !token) {
         return res.status(401).send({message: "Bearer is not defined or token is missing"});
     }
@@ -22,7 +17,7 @@ function auth(req, res, next) {
             const user = await User.findById(decode.id);
 
             if (!user || user.token !== token) {
-                return res.status(401).send({message: "Invalid token2", user});
+                return res.status(401).send({message: "Invalid token2"});
             }
 
             req.user = {id: decode.id};
