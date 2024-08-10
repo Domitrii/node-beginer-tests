@@ -1,4 +1,4 @@
-import { authSchema } from "../schemas/authSchema.js"
+import { authSchema, loginSchema } from "../schemas/authSchema.js"
 import HttpError from '../helpers/HttpError.js';
 import User from '../modules/usersModule.js'
 import bcrypt from 'bcryptjs';
@@ -29,6 +29,10 @@ async function register(req, res, next){
 
 async function login(req, res, next){
     try {
+        const {error} = loginSchema.validate(req.body)
+        if(error) {
+            throw HttpError(400, error.message)
+        }
         const {email, password} = req.body;
         
         const user = await User.findOne({email})
