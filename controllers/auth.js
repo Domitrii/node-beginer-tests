@@ -33,7 +33,7 @@ async function login(req, res, next){
         const {email, password} = req.body;
         console.log(email)
         const user = await User.findOne({email})
-        if(!user) throw HttpError(401, "User is not found")
+        if(!user) throw new HttpError(401, "User is not found")
 
         const isMatch = await bcrypt.compare(password, user.password)
         if(isMatch === false){
