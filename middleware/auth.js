@@ -3,10 +3,11 @@ import User from '../modules/usersModule.js';
 
 function auth(req, res, next) {
     const authorizationHeader = req.headers.authorization;
+    console.log(authorizationHeader)
 
-    if (!authorizationHeader) {
-        return res.status(401).send({message: "Invalid token1"});
-    }
+    // if (!authorizationHeader) {
+    //     return res.status(401).send({message: "Invalid token1"});
+    // }
 
     const [bearer, token] = authorizationHeader.split(' ', 2);
     if (bearer !== "Bearer" || !token) {
