@@ -7,9 +7,9 @@ function auth(req, res, next){
     const {authorization = ""} = req.headers
 
     const [bearer, token] = authorization.split(' ', 2)
-    if(bearer !== "Bearer"){
-       return res.status(401).send({message: "Bearer is not defined"})
-    }
+    // if(bearer !== "Bearer"){
+    //    return res.status(401).send({message: "Bearer is not defined"})
+    // }
 
     jwt.verify(token, process.env.SECRET_PASS , async (err, decode) => {
         if(err){
