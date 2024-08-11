@@ -6,11 +6,9 @@ dotenv.config()
 function auth(req, res, next){
     const {authorization = ""} = req.headers
 
-    console.log(req.headers.authorization)
-
     const [bearer, token] = authorization.split(' ', 2)
     if(bearer !== "Bearer"){
-       return res.status(401).send({message: "Bearer is not defined"})
+       return res.status(401).send({message: "Bearer is not defined; ", authorization})
     }
 
     jwt.verify(token, process.env.SECRET_PASS , async (err, decode) => {
