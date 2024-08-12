@@ -61,6 +61,7 @@ async function login(req, res, next){
         await User.findByIdAndUpdate(user._id , {token: token}, {new: true})
 
         res.send({token, refreshToken, user: {
+            name: user.name,
             id: user._id,
             email: user.email,
             gender: user.gender,
