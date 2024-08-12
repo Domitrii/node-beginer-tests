@@ -13,4 +13,4 @@ router.post('/logout', authMiddleware, UserControllers.logout);
 // router.get('/updatePassword', authMiddleware, UserControllers.updatePassword)
 
 export default router;
-
+ 
