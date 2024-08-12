@@ -76,7 +76,6 @@ async function login(req, res, next){
 
 async function logout(req, res, next){
     try{
-        console.log('logout')
         await User.findByIdAndUpdate(req.user.id, {token: null}, {new: true})
         res.status(204).end()
     } catch (error){
