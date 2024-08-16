@@ -25,7 +25,7 @@ function auth(req, res, next){
             }
 
             req.user = {id: decode.id}
-            next()
+            next() 
         } catch (error){
             next(error)
         }
