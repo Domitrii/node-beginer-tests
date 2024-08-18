@@ -28,11 +28,12 @@ async function currentUser(req, res, next){
 
 async function updateUser(req, res, next) {
     try {
-        const {gender, name, dailyNorm, timeActive, weight} = req.body
+        const {gender, name, dailyNorm, timeActive, weight, email} = req.body
 
         const updateData = {
             ...(gender && {gender}),
             ...(name && {name}),
+            ...(email && {email}),
             ...(dailyNorm && {dailyNorm}),
             ...(timeActive && {timeActive}),
             ...(weight && {weight})
