@@ -11,6 +11,7 @@ export const authSchema = Joi.object({
 
 export const updateSchema = Joi.object({
   name: Joi.string().min(3),
+  email: Joi.string().min(5),
   gender: Joi.string(),
   weight: Joi.number(),
   dailyNorm: Joi.number(),
