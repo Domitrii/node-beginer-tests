@@ -12,13 +12,15 @@ async function getWaterRecordDaily (req, res, next) {
         const today = `${recentYear}-${recentMonth}-${recentDay}`;
 
         const { day = today } = req.query;
-        console.log(Object(req.user.id))
-        const data = await Water.find({ owner: req.user.id });
+        console.log(day)
+        console.log(req.query)
+        console.log(req.user.id)
+        const data = await Water.findById({ owner: req.user.id });
         console.log(data)
         const filter = data.filter((el) => el.time.includes(day));
         const waterAmount = filter.reduce((acc, el) => (acc += el.amount), 0);
         console.log(waterAmount)
-        res.status(200).send({ data: filter, waterAmount });
+        res.status(200).json({ data: filter, waterAmount });
     } catch (error) {
         next(error)
     }
