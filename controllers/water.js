@@ -15,7 +15,7 @@ async function getWaterRecordDaily (req, res, next) {
         console.log(day)
         console.log(req.query)
         console.log(req.user.id)
-        const data = await Water.findById({ owner: req.user.id });
+        const data = await Water.find({ owner: req.user.id });
         console.log(data)
         const filter = data.filter((el) => el.time.includes(day));
         const waterAmount = filter.reduce((acc, el) => (acc += el.amount), 0);
