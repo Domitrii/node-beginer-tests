@@ -10,7 +10,7 @@ async function getWaterRecordDaily (req, res, next) {
         const recentMonth = (date.getMonth() + 1).toString().padStart(2, "0");
         const recentDay = date.getDate().toString().padStart(2, "0");
         const today = `${recentYear}-${recentMonth}-${recentDay}`;
-
+        console.log(req.query)
         const { day = today } = req.query;
         console.log(day)
         const data = await Water.find({ owner: req.user.id });
