@@ -10,19 +10,17 @@ async function getWaterRecordDaily (req, res, next) {
         const recentMonth = (date.getMonth() + 1).toString().padStart(2, "0");
         const recentDay = date.getDate().toString().padStart(2, "0");
         const today = `${recentYear}-${recentMonth}-${recentDay}`;
-
+    
         const { day = today } = req.query;
-        const userId = new mongoose.Types.ObjectId(req.user.id);
-        console.log(userId)
-        const data = await Water.find({ owner: userId });
-        console.log(data)
+    
+        const data = await Water.find({ owner: req.user.id });
         const filter = data.filter((el) => el.time.includes(day));
         const waterAmount = filter.reduce((acc, el) => (acc += el.amount), 0);
-        console.log(waterAmount)
+    
         res.status(200).json({ data: filter, waterAmount });
-    } catch (error) {
-        next(error)
-    }
+      } catch (error) {
+        next(error);
+      }
 }
 
 
