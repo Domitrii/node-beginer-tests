@@ -12,7 +12,7 @@ async function getWaterRecordDaily (req, res, next) {
         const today = `${recentYear}-${recentMonth}-${recentDay}`;
 
         const { day = today } = req.query;
-        const userId = mongoose.Types.ObjectId(req.user.id);
+        const userId = new mongoose.Types.ObjectId(req.user.id);
         console.log(userId)
         const data = await Water.find({ owner: userId });
         console.log(data)
