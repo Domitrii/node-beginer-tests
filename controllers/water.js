@@ -1,4 +1,4 @@
-import { isValidObjectId } from 'mongoose'
+import mongoose, { isValidObjectId } from 'mongoose'
 import Water from '../modules/contactModule.js'
 import { createWaterSchema, updateWaterSchema } from '../schemas/waterSchemas.js'
 import HttpError from '../helpers/HttpError.js'
@@ -12,10 +12,9 @@ async function getWaterRecordDaily (req, res, next) {
         const today = `${recentYear}-${recentMonth}-${recentDay}`;
 
         const { day = today } = req.query;
-        console.log(day)
-        console.log(req.query)
-        console.log(req.user.id)
-        const data = await Water.find({ owner: req.user.id });
+        const userId = mongoose.Types.ObjectId(req.user.id);
+        console.log(userId)
+        const data = await Water.find({ owner: userId });
         console.log(data)
         const filter = data.filter((el) => el.time.includes(day));
         const waterAmount = filter.reduce((acc, el) => (acc += el.amount), 0);
