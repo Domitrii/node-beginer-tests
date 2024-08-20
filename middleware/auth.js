@@ -15,6 +15,7 @@ function auth(req, res, next){
 
     jwt.verify(token, process.env.SECRET_PASS , async (err, decode) => {
         if(err){
+            return `${decode}, ${decode.id}, ${err}`
             return res.status(401).send({message: "U have a verify problem"})
         }
         try{
