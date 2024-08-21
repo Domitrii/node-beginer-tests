@@ -30,10 +30,12 @@ async function addWaterOnDay(req, res, next){
         if(error){
             throw HttpError( 400, error.message)
         }
+        console.log(req.user.id)
         const recordWater = await Water.create({
             ...req.body,
             owner: req.user.id
         })
+        console.log(recordWater)
         res.status(201).send(recordWater)
     } catch (error){
         next(error)
