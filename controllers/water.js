@@ -26,6 +26,7 @@ async function getWaterRecordDaily (req, res, next) {
 
 async function addWaterOnDay(req, res, next){ 
     try {
+        console.log(req.body)
         const {error} = createWaterSchema.validate(req.body)
         if(error){
             throw HttpError( 400, error.message)
