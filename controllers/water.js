@@ -5,7 +5,6 @@ import HttpError from '../helpers/HttpError.js'
 
 async function getWaterRecordDaily (req, res, next) {
     try {
-        console.log(req.body)
         console.log(req.user)
         const date = new Date();
         const recentYear = date.getFullYear();
