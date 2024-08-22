@@ -5,6 +5,8 @@ import HttpError from '../helpers/HttpError.js'
 
 async function getWaterRecordDaily (req, res, next) {
     try {
+        console.log(req.body)
+        console.log(req.user)
         const date = new Date();
         const recentYear = date.getFullYear();
         const recentMonth = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -12,7 +14,7 @@ async function getWaterRecordDaily (req, res, next) {
         const today = `${recentYear}-${recentMonth}-${recentDay}`;
     
         const { day = today } = req.query;
-        console.log(req.user)
+
         const data = await Water.findById({ owner: req.user.id });
         const filter = data.filter((el) => el.time.includes(day));
         const waterAmount = filter.reduce((acc, el) => (acc += el.amount), 0);
@@ -26,12 +28,10 @@ async function getWaterRecordDaily (req, res, next) {
 
 async function addWaterOnDay(req, res, next){ 
     try {
-        console.log(req.body)
         const {error} = createWaterSchema.validate(req.body)
         if(error){
             throw HttpError( 400, error.message)
         }
-        console.log(req.user.id)
         const recordWater = await Water.create({
             ...req.body,
             owner: req.user.id
@@ -63,11 +63,11 @@ async function getWaterRecordByMonth(req, res, next){
 async function deleteWaterRecord(req, res, next){
     try{
         const {id} = req.params
+        console.log(id)
         if(!isValidObjectId(id)) throw HttpError(401, "We can't find this id")
         const water = Water.findByIdAndDelete({_id: id, owner: req.user.id})
         if(!water) throw HttpError(401, "We can't find this id on your account")
         res.status(200).send("All fine")
-
     } catch (error){
         next(error)
     }
