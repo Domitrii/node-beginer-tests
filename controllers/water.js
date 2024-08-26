@@ -60,6 +60,7 @@ async function getWaterRecordByMonth(req, res, next){
 
 async function deleteWaterRecord(req, res, next){
     try{
+        console.log(req.params)
         const {id} = req.params
         console.log(id)
         if(!isValidObjectId(id)) throw HttpError(401, "We can't find this id")
