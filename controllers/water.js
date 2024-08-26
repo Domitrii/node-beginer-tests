@@ -5,7 +5,7 @@ import HttpError from '../helpers/HttpError.js'
 
 async function getWaterRecordDaily (req, res, next) {
     try {
-        console.log(req.user)
+        console.log(req.user.id)
         const date = new Date();
         const recentYear = date.getFullYear();
         const recentMonth = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -14,7 +14,7 @@ async function getWaterRecordDaily (req, res, next) {
     
         const { day = today } = req.query;
 
-        const data = await Water.findById({ owner: req.user.id });
+        const data = await Water.find({ owner: req.user.id });
         const filter = data.filter((el) => el.time.includes(day));
         const waterAmount = filter.reduce((acc, el) => (acc += el.amount), 0);
     
