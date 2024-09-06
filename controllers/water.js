@@ -65,7 +65,7 @@ async function deleteWaterRecord(req, res, next){
         const {id} = req.params
         console.log(id)
         if(!isValidObjectId(id)) throw HttpError(401, "We can't find this id")
-        const water = Water.findByIdAndDelete({_id: id, owner: req.user.id})
+        const water = await Water.findByIdAndDelete({_id: id, owner: req.user.id})
         if(!water) throw HttpError(401, "We can't find this id on your account")
         res.status(200).send("All fine")
     } catch (error){
