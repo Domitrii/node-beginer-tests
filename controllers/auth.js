@@ -26,14 +26,13 @@ async function register(req, res, next){
 
         const msg = {
             to: email,
-            from: 'domestostests@gmail.com',  // Ensure this is a valid sender email
+            from: 'domestostests@gmail.com',  
             subject: "Registration Confirmation",
             text: "Thank you for registering!",
             html: '<p>You have successfully registered!</p>',
         };
 
         await sendMail.send(msg);
-
 
         const result = await User.create({...req.body , password: passwordHash})
         res.status(201).send({user: {id: result._id, email: result.email }})
