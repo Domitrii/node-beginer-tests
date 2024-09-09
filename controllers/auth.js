@@ -22,10 +22,6 @@ async function register(req, res, next){
         const passwordHash = await bcrypt.hash(password, 10) 
 
         const result = await User.create({...req.body , password: passwordHash})
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 13cb6b3... SendGrid
         res.status(201).send({user: {id: result._id, email: result.email }})
     } catch(error){
         next(error)
