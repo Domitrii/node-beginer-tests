@@ -4,7 +4,6 @@ import User from '../modules/usersModule.js'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
-import sendMail from '@sendgrid/mail';
 dotenv.config();
 
 
@@ -22,19 +21,11 @@ async function register(req, res, next){
 
         const passwordHash = await bcrypt.hash(password, 10) 
 
-        sendMail.setApiKey(process.env.SEND_GRID_API_KEY);
-
-        const msg = {
-            to: email,
-            from: 'domestostests@gmail.com',  
-            subject: "Registration Confirmation",
-            text: "Thank you for registering!",
-            html: '<p>You have successfully registered!</p>',
-        };
-
-        await sendMail.send(msg);
-
         const result = await User.create({...req.body , password: passwordHash})
+<<<<<<< HEAD
+
+=======
+>>>>>>> parent of 13cb6b3... SendGrid
         res.status(201).send({user: {id: result._id, email: result.email }})
     } catch(error){
         next(error)
