@@ -75,11 +75,12 @@ async function deleteWaterRecord(req, res, next){
 
 async function updateWaterStatus(req, res, next){
     try{
-        const {id} = req.params;
-        if(!isValidObjectId(id)) throw HttpError(401, "We cannot find this id") 
+        const {_id} = req.params;
+        console.log(_id)
+        if(!isValidObjectId(_id)) throw HttpError(401, "We cannot find this id") 
         const {error} =  updateWaterSchema.validate(req.body)
         if(error) throw HttpError(400, error.message)
-        const water = await Water.findByIdAndUpdate(id, req.body, {new: true})
+        const water = await Water.findByIdAndUpdate(_id, req.body, {new: true})
         if(!water) throw HttpError(401, "We cannot find this id")
         res.status(200).send(water)
     } catch (error){
