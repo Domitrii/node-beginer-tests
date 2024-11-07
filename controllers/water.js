@@ -74,8 +74,6 @@ async function deleteWaterRecord(req, res, next){
 
 async function updateWaterStatus(req, res, next){
     try{
-        console.log(req.body)
-        console.log(req)
         console.log(req.params)
         const {_id} = req.params;
         console.log(_id)

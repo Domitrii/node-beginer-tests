@@ -4,6 +4,7 @@ import User from '../modules/usersModule.js'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
+import sendMail from '../helpers/mail.js'
 dotenv.config();
 
 
@@ -22,6 +23,17 @@ async function register(req, res, next){
         const passwordHash = await bcrypt.hash(password, 10) 
 
         const result = await User.create({...req.body , password: passwordHash})
+
+        const message = {
+            from: "waterApp.gmail.com",
+            to: email,
+            subject: 'Welcome to Our Platform!',
+            text: `Hello ${email}, thank you for registering!`,
+            html: `<p>Hello ${email}, thank you for registering!</p>`
+        }
+
+        await sendMail(message)
+
         res.status(201).send({user: {id: result._id, email: result.email }})
     } catch(error){
         next(error)
